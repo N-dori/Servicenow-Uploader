@@ -7,15 +7,10 @@ export async function docxConverter(req: Request, res: Response) {
     // 1. Access the Metadata from Headers
     console.log("All incoming headers:", JSON.stringify(req.headers));
     const revisionId = req.headers["x-revision-id"];
-    const table = req.headers["x-table"];
-    const instance = req.headers["x-instance"];
-    const user = req.headers["x-user"];
-    const password = req.headers["x-password"]; // Optional/Security check
+    const table = req.headers["x-source-table"];
+    
   
     console.log("revisionId result", revisionId);
-    console.log("password result", password);
-    console.log("user result", user);
-    console.log("instance result", instance);
     console.log("table result", table);
     const binaryDocx = req.body; // extract the buffer  data from req
 
