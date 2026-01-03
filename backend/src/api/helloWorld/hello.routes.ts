@@ -3,7 +3,7 @@ import {sayHello} from './hello.controller'
 
 const router = express.Router()
 
-router.post(
+router.get(
   "/hello",sayHello
 );
 
