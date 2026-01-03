@@ -5,6 +5,7 @@ import mammoth from "mammoth";
 export async function docxConverter(req: Request, res: Response) {
   try {
     // 1. Access the Metadata from Headers
+    console.log("All incoming headers:", JSON.stringify(req.headers));
     const revisionId = req.headers["x-revision-id"];
     const table = req.headers["table"];
     const instance = req.headers["x-instance"];
