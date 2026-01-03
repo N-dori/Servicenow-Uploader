@@ -11,6 +11,7 @@ dotenv.config();
 import upload from './api/upload/upload.routes'
 import demoData from './api/demoData/demoData.routes'
 import docxConverter from './api/mammothDocxConverter/mammoth.routes'
+import sayHello from './api/helloWorld/hello.routes'
 
 const app = express();
 const server = http.createServer(app);
@@ -33,6 +34,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/api', upload)
 app.use('/api', demoData)
 app.use('/api', docxConverter)
+app.use('/api', sayHello)
 
 // app.get('/**', (req:Request, res:Response) => {
 //     res.sendFile(path.join(__dirname, 'public', 'index.html'))
