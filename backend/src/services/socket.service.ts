@@ -1,6 +1,5 @@
 import { Server as SocketIOServer } from 'socket.io';
 import { Server as HttpServer } from 'http';
-import  logger  from './logger.service';
 
 let gIo: SocketIOServer | null = null;
 
@@ -12,8 +11,6 @@ let gIo: SocketIOServer | null = null;
 export function setUp(server: HttpServer, cors?: any): void {
   gIo = new SocketIOServer(server, { cors });
   gIo.on('connection', (socket) => {
-    logger.info('a user connected');
-    logger.info(`Socket ${socket.id} has connected`);
     // you can add socket event handlers here
   });
 }
@@ -23,7 +20,7 @@ export function setUp(server: HttpServer, cors?: any): void {
  */
 export function emit(eventName: string, data: any): void {
   if (!gIo) {
-    logger.warn('Socket service not initialized. Cannot emit event:', eventName);
+    console.log('Socket service not initialized. Cannot emit event:', eventName);
     return;
   }
   gIo.emit(eventName, data);

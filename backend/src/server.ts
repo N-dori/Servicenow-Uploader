@@ -1,11 +1,16 @@
 import express, { Request, Response } from 'express';
-import logger from './services/logger.service'
 import cors from 'cors';
 import path from 'path';
 import http from 'http';
-import  setupAsyncLocalStorage from './middlewares/setupAls.middleware'
 import { setUp } from './services/socket.service';
+import dotenv from "dotenv";
 
+// Load env
+dotenv.config();
+// routes imports
+import upload from './api/upload/upload.routes'
+import demoData from './api/demoData/demoData.routes'
+import docxConverter from './api/mammothDocxConverter/mammoth.routes'
 
 const app = express();
 const server = http.createServer(app);
@@ -15,7 +20,7 @@ app.use(express.json());
 
 
 const corsOptions = {
-    origin: ['http://127.0.0.1:5173', 'http://localhost:5173', 'http://localhost:5175','http://127.0.0.1:5175'],
+    origin: ['http://127.0.0.1:5500'],
     credentials: true
 }
 if (process.env.NODE_ENV === 'production') {
@@ -24,14 +29,10 @@ if (process.env.NODE_ENV === 'production') {
     app.use(cors(corsOptions))
 }
 
-// const authRoutes = require('./api/auth/auth.routes')
-// const userRoutes = require('./api/user/user.routes')
- 
- // routes
-app.all('*', setupAsyncLocalStorage)
-
-// app.use('/api/auth', authRoutes)
-// app.use('/api/user', userRoutes)
+ //ROUTES 
+app.use('/api', upload)
+app.use('/api', demoData)
+app.use('/api', docxConverter)
 
 app.get('/**', (req:Request, res:Response) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'))
@@ -39,6 +40,6 @@ app.get('/**', (req:Request, res:Response) => {
 
 const PORT = process.env.PORT || 3030;
 server.listen(PORT, () => {
-  logger.info(`Server is running on port: ${PORT}`);
+  console.log(`Server is running on port: ${PORT}`);
   setUp(server, corsOptions);
 });

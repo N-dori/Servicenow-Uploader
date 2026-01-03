@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
+    
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
@@ -9,9 +10,10 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "types": ["node", "express"],
+    
 
 // "allowImportingTsExtensions": true ,   
 },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../frontend/demoData"],
   "exclude": ["node_modules"]
 }
