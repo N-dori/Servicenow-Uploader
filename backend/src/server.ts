@@ -36,6 +36,7 @@ app.use('/api', demoData)
 app.use('/api', docxConverter)
 app.use('/api', sayHello)
 
+// Serve frontend in production
 // app.get('/**', (req:Request, res:Response) => {
 //     res.sendFile(path.join(__dirname, 'public', 'index.html'))
 // })

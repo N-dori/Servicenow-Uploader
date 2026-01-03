@@ -1,14 +1,11 @@
 import axios from "axios";
 import { devConfig } from "./config/dev";
 
-const _getInstanceUrl = (name: string) => {
-  const SN_BASE = `https://${name}.service-now.com/api/now/table`;
-  return SN_BASE
-} 
+const SN_BASE = `https://${devConfig.instance}.service-now.com/api/now/table`;
 
 export const snClient = axios.create({
-  baseURL: _getInstanceUrl(''),
-  auth: { username: '', password: '' },
+  baseURL: SN_BASE,
+  auth: { username: devConfig.user, password: devConfig.password },
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -21,6 +18,17 @@ export async function snInsert(table: string, payload: any) {
     return response.data; // ServiceNow returns the created record
   } catch (error: any) {
     console.error("ServiceNow insert error:", error.response?.data || error.message);
+    throw error;
+  }
+}
+
+export async function snUpdate(table:string , sysId:string, payload:any) {
+  try {
+    // ServiceNow uses PATCH for partial updates
+    const response = await snClient.put(`/${table}/${sysId}`, payload);
+    return response.data;
+  } catch (error:string|any) {
+    console.error("ServiceNow update error:", error.response?.data || error.message);
     throw error;
   }
 }
