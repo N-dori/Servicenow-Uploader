@@ -34,9 +34,9 @@ app.use('/api', upload)
 app.use('/api', demoData)
 app.use('/api', docxConverter)
 
-app.get('/**', (req:Request, res:Response) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
-})
+// app.get('/**', (req:Request, res:Response) => {
+//     res.sendFile(path.join(__dirname, 'public', 'index.html'))
+// })
 
 const PORT = process.env.PORT || 3030;
 server.listen(PORT, () => {
